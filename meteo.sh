@@ -1060,6 +1060,24 @@ if [ -e ftrie/p3s.txt ] ; then
             rm fnontrie/*.txt 2>/dev/null
             exit
         fi
+        
+        gnuplot_script=$(cat <<EOF
+       set terminal png
+       set datafile separator ";"
+       set output "p3.png"
+       set xlabel "Id de la station"
+       set ylabel "Pression en pascal"
+       set title "Pression moyenne /h de chaque station"
+       set xdata time
+       set timefmt "%Y-%m-%d"
+       set format x "%Y-%m-%d"
+       plot "p3.txt" using 3:1:2 with linespoints lc variable     
+ 
+EOF
+)
+echo "$gnuplot_script" | gnuplot
+open "p3.png"
+} 
 
     else 
         echo "Paramètres trop restrictifs : il n'existe aucune donnée dans le fichier correspondant aux options rentrées (pression 3)."
