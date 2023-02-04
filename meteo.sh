@@ -837,20 +837,20 @@ if [ -e ftrie/t3s.txt ] ; then
 # Set the title and axis labels
 set terminal png
 set datafile separator ";"
-set title ""
-set xlabel ""
-set ylabel ""
+set title "température"
+set xlabel "jour et heure de la mesure"
+set ylabel "ID de la station"
 set output "t3.png"
 set autoscale fix
 
 # Plot the data
-plot "meteo_filtered_data_v1.csv" using ID:Max:Min:Moy with errorbars
+plot "t3.png" using 1:2:3:4 with errorbars
 
 EOF
 )
 
 echo "$gnuplot_script" | gnuplot
-open "p1.png"
+open "t3.png"
 
 
     else 
