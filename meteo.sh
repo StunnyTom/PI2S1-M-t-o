@@ -808,7 +808,7 @@ if [ -e ftrie/t3s.txt ] ; then
         awk -F'[;,]' '{print $3 ";" $2 ";" $1 ";" $4 }
         ' ftrie/t3s.txt > ftrie/t3nsf.txt         #On trie de nouveau mais selon une autre variable
 
-        ./triexec "$argtri" -f fnontrie/t3nsf.txt -o ftrie/p3sf.txt "$reverse"
+        ./triexec "$argtri" -f fnontrie/t3nsf.txt -o ftrie/t3sf.txt "$reverse"
         ressort=$?
         if (( ressort == 1 )) ; then
             echo "Erreur d'options : option manquante ou incomplète à l'appel du fichier de tri."
@@ -837,20 +837,20 @@ if [ -e ftrie/t3s.txt ] ; then
 # Set the title and axis labels
 set terminal png
 set datafile separator ";"
-set title ""
-set xlabel ""
-set ylabel ""
+set title "température"
+set xlabel "jour et heure de la mesure"
+set ylabel "ID de la station"
 set output "t3.png"
 set autoscale fix
 
 # Plot the data
-plot "meteo_filtered_data_v1.csv" using ID:Max:Min:Moy with errorbars
+plot "t3.png" using 1:2:3:4 with errorbars
 
 EOF
 )
 
 echo "$gnuplot_script" | gnuplot
-open "p1.png"
+open "t3.png"
 
 
     else 
